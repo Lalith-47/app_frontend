@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../quiz/providers/quiz_provider.dart';
 import '../../../core/services/mock_data_service.dart';
+import '../../../shared/models/user_model.dart';
 
 class MentorDashboard extends ConsumerStatefulWidget {
   const MentorDashboard({super.key});

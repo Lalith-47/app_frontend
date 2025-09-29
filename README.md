@@ -5,6 +5,7 @@ A comprehensive Flutter mobile application designed to help students discover th
 ## 🚀 Features
 
 ### For Students
+
 - **Career Assessment Quizzes**: Take comprehensive quizzes to discover your ideal career path
 - **Progress Tracking**: Monitor your performance and track improvement over time
 - **Mentor Connection**: Connect with experienced mentors for personalized guidance
@@ -12,6 +13,7 @@ A comprehensive Flutter mobile application designed to help students discover th
 - **Analytics Dashboard**: View detailed insights about your strengths and areas for improvement
 
 ### For Mentors
+
 - **Student Management**: View and manage all assigned students
 - **Performance Analytics**: Track student progress and identify areas needing attention
 - **Communication Tools**: Chat with students and provide real-time guidance
@@ -21,24 +23,28 @@ A comprehensive Flutter mobile application designed to help students discover th
 ## 📱 App Screenshots
 
 ### Student Dashboard
+
 - Modern, intuitive interface with progress tracking
 - Quick access to quizzes and results
 - Real-time activity feed
 - Performance analytics with visual charts
 
 ### Mentor Dashboard
+
 - Comprehensive student overview
 - Performance metrics and analytics
 - Communication tools
 - Session management
 
 ### Quiz System
+
 - Multiple quiz types: Career Aptitude, Leadership Skills, Technical Skills
 - Interactive question interface with progress tracking
 - Detailed results with personalized recommendations
 - Performance analysis and next steps
 
 ### Chat System
+
 - Real-time messaging between mentors and students
 - File sharing capabilities
 - Message history and search
@@ -102,6 +108,7 @@ dependencies:
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Flutter SDK (3.5.4 or higher)
 - Dart SDK (3.5.4 or higher)
 - Android Studio / VS Code
@@ -110,12 +117,14 @@ dependencies:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Lalith-47/app_frontend.git
    cd app_frontend
    ```
 
 2. **Install dependencies**
+
    ```bash
    flutter pub get
    ```
@@ -128,6 +137,7 @@ dependencies:
 ### Mock Data
 
 The app currently uses comprehensive mock data for demonstration purposes. This includes:
+
 - Sample users (students and mentors)
 - Pre-configured quizzes with multiple question types
 - Mock chat conversations
@@ -163,12 +173,14 @@ The app follows a clean architecture pattern with:
 ## 📊 Quiz Types
 
 1. **Career Aptitude Assessment**
+
    - Work environment preferences
    - Learning style assessment
    - Interest and motivation analysis
    - Career recommendations
 
 2. **Leadership Skills Evaluation**
+
    - Conflict resolution abilities
    - Team management skills
    - Decision-making processes
@@ -217,7 +229,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Lalith** - *Initial work* - [Lalith-47](https://github.com/Lalith-47)
+- **Lalith** - _Initial work_ - [Lalith-47](https://github.com/Lalith-47)
 
 ## 🙏 Acknowledgments
 
@@ -228,6 +240,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 If you have any questions or need help, please:
+
 - Open an issue on GitHub
 - Contact the development team
 - Check the documentation

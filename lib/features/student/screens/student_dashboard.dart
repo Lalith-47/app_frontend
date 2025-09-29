@@ -6,6 +6,7 @@ import '../../quiz/providers/quiz_provider.dart';
 import '../../quiz/screens/quiz_screen.dart';
 import '../../quiz/screens/quiz_results_screen.dart';
 import '../../../core/services/mock_data_service.dart';
+import '../../../shared/models/quiz_model.dart';
 
 class StudentDashboard extends ConsumerStatefulWidget {
   const StudentDashboard({super.key});

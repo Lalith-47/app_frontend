@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../../core/services/mock_data_service.dart';
 import '../../../shared/models/message_model.dart';
+import '../../../shared/models/user_model.dart';
 
 class ChatListScreen extends ConsumerStatefulWidget {
   const ChatListScreen({super.key});
@@ -34,10 +35,7 @@ class _ChatListScreenState extends ConsumerState<ChatListScreen> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // TODO: Implement search
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Search feature coming soon')),
-              );
+              _showSearchDialog(context);
             },
           ),
           IconButton(
@@ -116,70 +114,121 @@ class _ChatListScreenState extends ConsumerState<ChatListScreen> {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: ListTile(
-        leading: CircleAvatar(
-          radius: 28,
-          backgroundImage: otherUser.profileImage != null
-              ? NetworkImage(otherUser.profileImage!)
-              : null,
-          child: otherUser.profileImage == null
-              ? Text(
-                  otherUser.initials,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                )
-              : null,
-        ),
-        title: Text(
-          room.name,
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: Text(
-          room.lastMessage ?? 'No messages yet',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: room.unreadCount > 0
-                ? Colors.black87
-                : Colors.grey.shade600,
-          ),
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (room.lastMessageTime != null)
-              Text(
-                _formatTime(room.lastMessageTime!),
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-            if (room.unreadCount > 0)
-              Container(
-                margin: const EdgeInsets.only(top: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  '${room.unreadCount}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-          ],
-        ),
+      child: InkWell(
         onTap: () {
           context.go('/chat/room/${room.id}');
         },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundImage: otherUser.profileImage != null
+                    ? NetworkImage(otherUser.profileImage!)
+                    : null,
+                child: otherUser.profileImage == null
+                    ? Text(
+                        otherUser.initials,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      )
+                    : null,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      room.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      room.lastMessage ?? 'No messages yet',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: room.unreadCount > 0
+                            ? Colors.black87
+                            : Colors.grey.shade600,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (room.lastMessageTime != null)
+                    Text(
+                      _formatTime(room.lastMessageTime!),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  if (room.unreadCount > 0)
+                    Container(
+                      margin: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${room.unreadCount}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showSearchDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Search Messages'),
+        content: TextField(
+          decoration: const InputDecoration(
+            hintText: 'Search by name or message...',
+            prefixIcon: Icon(Icons.search),
+          ),
+          onChanged: (value) {
+            // TODO: Implement search functionality
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Perform search
+            },
+            child: const Text('Search'),
+          ),
+        ],
       ),
     );
   }
@@ -197,28 +246,134 @@ class _ChatListScreenState extends ConsumerState<ChatListScreen> {
               title: const Text('Search Messages'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implement search
+                _showSearchDialog(context);
               },
-            ),
+            },
             ListTile(
               leading: const Icon(Icons.notifications),
               title: const Text('Notification Settings'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implement notification settings
+                _showNotificationSettings(context);
               },
-            ),
+            },
             ListTile(
               leading: const Icon(Icons.help),
               title: const Text('Help & Support'),
               onTap: () {
                 Navigator.pop(context);
-                // TODO: Implement help
+                _showHelpDialog(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('About'),
+              onTap: () {
+                Navigator.pop(context);
+                _showAboutDialog(context);
               },
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showNotificationSettings(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Notification Settings'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SwitchListTile(
+              title: const Text('Push Notifications'),
+              subtitle: const Text('Receive notifications for new messages'),
+              value: true,
+              onChanged: (value) {
+                // TODO: Implement notification toggle
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Sound'),
+              subtitle: const Text('Play sound for new messages'),
+              value: true,
+              onChanged: (value) {
+                // TODO: Implement sound toggle
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Vibration'),
+              subtitle: const Text('Vibrate for new messages'),
+              value: true,
+              onChanged: (value) {
+                // TODO: Implement vibration toggle
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showHelpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Help & Support'),
+        content: const SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'How to use Chat:',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text('• Tap on a conversation to open it'),
+              Text('• Use the + button to start a new chat'),
+              Text('• Search for messages using the search icon'),
+              Text('• Long press on messages for more options'),
+              SizedBox(height: 16),
+              Text(
+                'Need more help?',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text('Contact support at: support@praniti.com'),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAboutDialog(BuildContext context) {
+    showAboutDialog(
+      context: context,
+      applicationName: 'Praniti Chat',
+      applicationVersion: '1.0.0',
+      applicationIcon: const Icon(Icons.chat, size: 48),
+      children: [
+        const Text('A secure messaging platform for career guidance.'),
+        const SizedBox(height: 16),
+        const Text('Built with Flutter and Riverpod.'),
+        const SizedBox(height: 8),
+        const Text('© 2024 Praniti. All rights reserved.'),
+      ],
     );
   }
 
