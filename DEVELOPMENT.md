@@ -28,17 +28,20 @@ lib/
 ## 🛠️ Development Setup
 
 ### Prerequisites
+
 - Flutter SDK 3.5.4 or higher
 - Dart SDK 3.5.4 or higher
 - Android Studio / VS Code with Flutter extensions
 - Git
 
 ### Getting Started
+
 1. Clone the repository
 2. Install dependencies: `flutter pub get`
 3. Run the app: `flutter run`
 
 ### Code Style
+
 - Follow Dart/Flutter style guidelines
 - Use `flutter format` to format code
 - Run `flutter analyze` to check for issues
@@ -47,6 +50,7 @@ lib/
 ## 🧪 Testing
 
 ### Running Tests
+
 ```bash
 # Run all tests
 flutter test
@@ -59,6 +63,7 @@ flutter test test/services/validation_service_test.dart
 ```
 
 ### Test Structure
+
 - Unit tests for services and utilities
 - Widget tests for UI components
 - Integration tests for complete user flows
@@ -66,6 +71,7 @@ flutter test test/services/validation_service_test.dart
 ## 🔧 Core Services
 
 ### 1. LoggingService
+
 Centralized logging with different levels and categories.
 
 ```dart
@@ -75,6 +81,7 @@ LoggingService().logAuth('User logged in');
 ```
 
 ### 2. CacheService
+
 Intelligent caching with TTL support.
 
 ```dart
@@ -83,6 +90,7 @@ final data = await CacheService().getCache<Map<String, dynamic>>('key');
 ```
 
 ### 3. ValidationService
+
 Comprehensive input validation.
 
 ```dart
@@ -93,6 +101,7 @@ if (!result.isValid) {
 ```
 
 ### 4. ErrorService
+
 Centralized error handling and user feedback.
 
 ```dart
@@ -101,6 +110,7 @@ ErrorService().handleError(context, error);
 ```
 
 ### 5. PerformanceService
+
 Performance monitoring and optimization.
 
 ```dart
@@ -112,18 +122,21 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🔐 Security
 
 ### Password Security
+
 - Minimum 6 characters, maximum 128 characters
 - Must contain letters and numbers
 - Password hashing with salt
 - Strength validation
 
 ### Input Sanitization
+
 - XSS prevention
 - SQL injection prevention
 - Input length limits
 - Suspicious pattern detection
 
 ### Rate Limiting
+
 - Login attempt limiting
 - API request throttling
 - Session management
@@ -131,11 +144,13 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📱 State Management
 
 ### Riverpod Providers
+
 - `authProvider`: Authentication state
 - `quizProvider`: Quiz-related state
 - `currentUserProvider`: Current user information
 
 ### State Patterns
+
 - Use `StateNotifier` for complex state
 - Use `Provider` for simple values
 - Use `FutureProvider` for async operations
@@ -143,17 +158,20 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🎨 UI/UX Guidelines
 
 ### Design System
+
 - Material Design 3 components
 - Consistent color palette
 - Typography hierarchy
 - Spacing system
 
 ### Responsive Design
+
 - Mobile-first approach
 - Tablet and desktop support
 - Adaptive layouts
 
 ### Accessibility
+
 - Screen reader support
 - High contrast mode
 - Keyboard navigation
@@ -162,18 +180,21 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🚀 Performance Optimization
 
 ### Caching Strategy
+
 - API response caching
 - Image caching
 - User data caching
 - Cache invalidation
 
 ### Memory Management
+
 - Dispose controllers properly
 - Use `const` constructors
 - Avoid memory leaks
 - Monitor memory usage
 
 ### Build Optimization
+
 - Tree shaking
 - Code splitting
 - Asset optimization
@@ -182,6 +203,7 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🔄 CI/CD Pipeline
 
 ### Automated Checks
+
 - Code formatting
 - Static analysis
 - Unit tests
@@ -189,6 +211,7 @@ await PerformanceService().timeOperation('api_call', () async {
 - Security scanning
 
 ### Build Process
+
 - Android APK/AAB
 - iOS IPA
 - Web deployment
@@ -197,6 +220,7 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📊 Monitoring and Analytics
 
 ### Performance Metrics
+
 - App startup time
 - Screen load times
 - API response times
@@ -204,6 +228,7 @@ await PerformanceService().timeOperation('api_call', () async {
 - Battery usage
 
 ### Error Tracking
+
 - Crash reporting
 - Error logging
 - User feedback
@@ -212,12 +237,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🐛 Debugging
 
 ### Debug Tools
+
 - Flutter Inspector
 - Performance Overlay
 - Memory Profiler
 - Network Inspector
 
 ### Logging
+
 - Structured logging
 - Log levels
 - Category-based logging
@@ -226,12 +253,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📝 Code Documentation
 
 ### Documentation Standards
+
 - Inline comments for complex logic
 - API documentation
 - README files for features
 - Architecture decisions
 
 ### Code Review
+
 - Peer review required
 - Automated checks
 - Security review
@@ -240,12 +269,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🔧 Configuration
 
 ### Environment Variables
+
 - API endpoints
 - Feature flags
 - Debug settings
 - Security keys
 
 ### Build Variants
+
 - Development
 - Staging
 - Production
@@ -254,12 +285,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🚨 Error Handling
 
 ### Error Types
+
 - Network errors
 - Validation errors
 - Authentication errors
 - System errors
 
 ### Error Recovery
+
 - Retry mechanisms
 - Fallback strategies
 - User guidance
@@ -268,6 +301,7 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📱 Platform Support
 
 ### Supported Platforms
+
 - Android (API 21+)
 - iOS (12.0+)
 - Web
@@ -276,6 +310,7 @@ await PerformanceService().timeOperation('api_call', () async {
 - Linux
 
 ### Platform-Specific Code
+
 - Use platform channels
 - Conditional compilation
 - Platform-specific UI
@@ -284,12 +319,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🔄 Data Management
 
 ### Local Storage
+
 - Hive for structured data
 - SharedPreferences for simple data
 - File system for large files
 - Cache management
 
 ### Data Synchronization
+
 - Offline support
 - Conflict resolution
 - Background sync
@@ -298,6 +335,7 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🎯 Feature Development
 
 ### Feature Checklist
+
 - [ ] Requirements analysis
 - [ ] UI/UX design
 - [ ] Implementation
@@ -308,6 +346,7 @@ await PerformanceService().timeOperation('api_call', () async {
 - [ ] Security review
 
 ### Feature Flags
+
 - Gradual rollout
 - A/B testing
 - Feature toggles
@@ -316,12 +355,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📈 Metrics and KPIs
 
 ### User Metrics
+
 - Daily active users
 - Session duration
 - Feature usage
 - User retention
 
 ### Technical Metrics
+
 - App performance
 - Error rates
 - API response times
@@ -330,12 +371,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🛡️ Security Best Practices
 
 ### Code Security
+
 - Input validation
 - Output encoding
 - Authentication
 - Authorization
 
 ### Data Protection
+
 - Encryption at rest
 - Encryption in transit
 - Secure storage
@@ -344,12 +387,14 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 🔧 Maintenance
 
 ### Regular Tasks
+
 - Dependency updates
 - Security patches
 - Performance optimization
 - Code refactoring
 
 ### Monitoring
+
 - Error rates
 - Performance metrics
 - User feedback
@@ -358,16 +403,19 @@ await PerformanceService().timeOperation('api_call', () async {
 ## 📚 Resources
 
 ### Documentation
+
 - [Flutter Documentation](https://flutter.dev/docs)
 - [Riverpod Documentation](https://riverpod.dev/)
 - [Material Design](https://material.io/design)
 
 ### Tools
+
 - [Flutter Inspector](https://flutter.dev/docs/development/tools/flutter-inspector)
 - [Performance Overlay](https://flutter.dev/docs/perf/overview)
 - [Memory Profiler](https://flutter.dev/docs/perf/memory)
 
 ### Best Practices
+
 - [Flutter Best Practices](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options)
 - [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
 - [Security Guidelines](https://flutter.dev/docs/development/data-and-backend/security)
