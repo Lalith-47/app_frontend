@@ -8,11 +8,17 @@ import '../../features/student/screens/student_dashboard.dart';
 import '../../features/mentor/screens/mentor_dashboard.dart';
 import '../../features/chat/screens/chat_list_screen.dart';
 import '../../features/chat/screens/chat_screen.dart';
+import '../../features/quiz/screens/quiz_screen.dart';
+import '../../features/quiz/screens/quiz_results_screen.dart';
 import '../../features/shared/screens/splash_screen.dart';
 import '../../features/shared/screens/error_screen.dart';
+import '../../features/quiz/providers/quiz_provider.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authProvider);
+  
+  // Load quizzes when app starts
+  ref.read(quizProvider.notifier).loadAvailableQuizzes();
   
   return GoRouter(
     initialLocation: '/splash',
@@ -75,11 +81,18 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: 'quiz',
-            builder: (context, state) => const StudentQuizScreen(),
+            builder: (context, state) => const QuizResultsScreen(),
           ),
           GoRoute(
             path: 'results',
-            builder: (context, state) => const StudentResultsScreen(),
+            builder: (context, state) => const QuizResultsScreen(),
+          ),
+          GoRoute(
+            path: 'quiz/:quizId',
+            builder: (context, state) {
+              final quizId = state.pathParameters['quizId']!;
+              return QuizScreen(quizId: quizId);
+            },
           ),
           GoRoute(
             path: 'mentor',
@@ -216,6 +229,8 @@ class MentorSessionsScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

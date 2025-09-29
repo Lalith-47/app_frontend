@@ -1,10 +1,12 @@
 import '../../../core/network/api_client.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/errors/api_exception.dart';
+import '../../../core/services/mock_data_service.dart';
 import '../../../shared/models/user_model.dart';
 
 class AuthService {
   final ApiClient _apiClient = ApiClient();
+  final MockDataService _mockDataService = MockDataService();
 
   Future<Map<String, dynamic>> login({
     required String email,
@@ -12,19 +14,12 @@ class AuthService {
     String? role,
   }) async {
     try {
-      final response = await _apiClient.post(
-        AppConstants.loginEndpoint,
-        data: {
-          'email': email,
-          'password': password,
-          if (role != null) 'role': role,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-        final token = data['token'];
-        final user = UserModel.fromJson(data['user']);
+      // Use mock data for now
+      final result = await _mockDataService.authenticateUser(email, password, role);
+      
+      if (result['success']) {
+        final token = result['token'];
+        final user = result['user'] as UserModel;
 
         // Store token
         await _apiClient.setToken(token);
@@ -33,10 +28,10 @@ class AuthService {
           'success': true,
           'token': token,
           'user': user,
-          'message': data['message'] ?? 'Login successful',
+          'message': 'Login successful',
         };
       } else {
-        throw ApiException('Login failed: ${response.data['message']}');
+        throw ApiException('Login failed: ${result['message']}');
       }
     } catch (e) {
       throw ApiException('Login failed: ${e.toString()}');
@@ -51,26 +46,23 @@ class AuthService {
     String? mentorId,
   }) async {
     try {
-      final response = await _apiClient.post(
-        AppConstants.registerEndpoint,
-        data: {
-          'name': name,
-          'email': email,
-          'password': password,
-          'role': role,
-          if (mentorId != null) 'mentorId': mentorId,
-        },
+      // Use mock data for now
+      final result = await _mockDataService.registerUser(
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+        mentorId: mentorId,
       );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final data = response.data;
+      if (result['success']) {
         return {
           'success': true,
-          'message': data['message'] ?? 'Registration successful',
-          'user': data['user'] != null ? UserModel.fromJson(data['user']) : null,
+          'message': result['message'] ?? 'Registration successful',
+          'user': result['user'],
         };
       } else {
-        throw ApiException('Registration failed: ${response.data['message']}');
+        throw ApiException('Registration failed: ${result['message']}');
       }
     } catch (e) {
       throw ApiException('Registration failed: ${e.toString()}');
@@ -79,13 +71,18 @@ class AuthService {
 
   Future<UserModel> getCurrentUser() async {
     try {
-      final response = await _apiClient.get(AppConstants.profileEndpoint);
-      
-      if (response.statusCode == 200) {
-        return UserModel.fromJson(response.data['user']);
-      } else {
-        throw ApiException('Failed to get user profile');
+      // For mock data, return the first user as current user
+      // In a real app, this would be stored in local storage
+      final token = await getToken();
+      if (token != null) {
+        // Extract user ID from token (mock implementation)
+        final userId = token.split('_')[1]; // mock_token_userId_timestamp
+        final user = _mockDataService.getUserById(userId);
+        if (user != null) {
+          return user;
+        }
       }
+      throw ApiException('User not found');
     } catch (e) {
       throw ApiException('Failed to get user profile: ${e.toString()}');
     }
@@ -204,5 +201,7 @@ class AuthService {
     }
   }
 }
+
+
 
 
